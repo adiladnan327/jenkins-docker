@@ -1,0 +1,23 @@
+---
+version: '2.2'
+services:
+  jenkins:
+      # name of the recently created image
+    build: docker-jenkins
+    image: docker-jenkins:1.0
+    container_name: jenkins-web
+    user: root
+    ports:
+       - 8000:8080
+       - 50000:50000
+    volumes:
+       - /var/run/docker.sock:/var/run/docker.sock
+       - /home/amohammed/AdilWork/jenkins_home:/var/jenkins_home
+#       - ~/jenkins-docker-certs:/cert/client:ro
+    networks:
+       - jenkins
+    environment:
+       - "DOCKER_HOST=tcp://docker:2375"
+       - "DOCKER_CERT_PATH=/cert/client"
+networks:
+  jenkins:
